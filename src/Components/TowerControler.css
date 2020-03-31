@@ -1,0 +1,10 @@
+
+.tower-controler{
+    height: 20vh;
+    width: 20vw;
+    position: absolute;
+    z-index: 100000;
+    top: 1vh;
+    right: 2vw;
+    background: #fff;
+}
