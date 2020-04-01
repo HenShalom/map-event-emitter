@@ -10,16 +10,24 @@ export default class MapContainer extends Component {
     }
 
     render() {
+        const { newTowerMode, newTowerClick } = this.props
         const position = [this.state.lat, this.state.lng]
+
         return (
-            <Map center={position} zoom={this.state.zoom}>
-                <TileLayer
-                    attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-                {this.props.children}
-                {/* <Circle center={position} fillColor="blue" radius={200} /> */}
-            </Map>
+            <div className="map-container">
+
+                {
+                    newTowerMode && <h1 className="select-location-header">Select Location</h1>
+                }
+                <Map center={position} zoom={this.state.zoom} onclick={newTowerClick}>
+                    <TileLayer
+                        attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    />
+                    {this.props.children}
+                    {/* <Circle center={position} fillColor="blue" radius={200} /> */}
+                </Map>
+            </div>
         )
     }
 }

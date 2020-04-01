@@ -1,41 +1,46 @@
 import React, { Component } from 'react'
-import { TextInput, FormField,CheckBox,Button } from 'grommet'
-
+import { TextArea, FormField, Button } from 'grommet'
 import './TowerControler.css'
+
+
+function tryParseJson(jsonString) {
+    if (jsonString === "") return {};
+    try {
+        return JSON.parse(jsonString)
+    } catch{
+        return null
+    }
+
+}
 
 export default class TowerControler extends Component {
     state = {
         towerList: [],
-        radius: 200,
-        complex: false
+        settings: ""
     }
 
     render() {
-        const { radius, complex } = this.state
+        const { settings } = this.state
+        const parseSettings = tryParseJson(settings)
         return (
             <div className="tower-controler">
                 <div>
-                <FormField label="radius" margin="medium" style={{ width: "50%" }}>
-                    <TextInput pplaceholder="type here"
-                        value={radius}
-                        onChange={event => this.setState({ radius: event.target.value })}
-                    />
-                </FormField>
-                <FormField margin="medium" style={{ width: "50%" }}>
-                <CheckBox
-                    checked={complex}
-                    label="Complex?"
-                    onChange={event => this.setState({ complex: event.target.checked })}
-
-                />
-                </FormField>
+                    <FormField height={"20vh"} label={"Settings Json" + (parseSettings ? "" : " X")} margin="medium" style={{ width: "80%" }}>
+                        <TextArea pplaceholder="type here"
+                            resize
+                            fill
+                            value={settings}
+                            onChange={event => this.setState({ settings: event.target.value })}
+                        />
+                    </FormField>
                 </div>
-                <Button
-  icon={<Icons.Edit />}
-  label="Edit"
-  onClick={() => {}}
-/>
-                
+                <div style={{ width: "100%", display: "flex", marginTop: "5vh" }}>
+                    <Button
+                        style={{ margin: "auto" }}
+                        label="Add"
+                        onClick={() => this.props.addTower(parseSettings)}
+                    />
+                </div>
             </div>
         )
     }
