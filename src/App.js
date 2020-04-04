@@ -33,14 +33,13 @@ export default class App extends Component {
 
   render() {
     const { newTowerMode, towerList } = this.state
-
     return (
       < Grommet plain>
         <TowerControler addTower={this.newTowerMode} />
         <MapContainer newTowerMode={newTowerMode} newTowerClick={this.addTower}>
           {
             towerList.map(tower =>
-              <Circle center={tower.location} fillColor={tower.color} radius={tower.radius} />
+              <Circle key={tower.key} center={tower.location} fillColor={tower.color} radius={tower.radius} />
             )
           }
         </MapContainer>

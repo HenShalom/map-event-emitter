@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { TextArea, FormField, Button } from 'grommet'
+import jsonTemplate from '../Utils/jsonTemplate'
 import './TowerControler.css'
 
 
@@ -16,7 +17,7 @@ function tryParseJson(jsonString) {
 export default class TowerControler extends Component {
     state = {
         towerList: [],
-        settings: ""
+        settings: JSON.stringify(jsonTemplate,null,4)
     }
 
     render() {

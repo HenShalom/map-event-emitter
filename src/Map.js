@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Map, TileLayer } from 'react-leaflet'
+import { Map, TileLayer, FeatureGroup } from 'react-leaflet'
+import { EditControl } from "react-leaflet-draw"
 import './App.css'
 
 export default class MapContainer extends Component {
@@ -19,7 +20,21 @@ export default class MapContainer extends Component {
                 {
                     newTowerMode && <h1 className="select-location-header">Select Location</h1>
                 }
-                <Map center={position} zoom={this.state.zoom} onclick={newTowerClick}>
+                <Map center={position} zoom={this.state.zoom} onclick={newTowerMode?newTowerClick:null}>
+                    <FeatureGroup>
+                        <EditControl
+                            position='bottomleft'
+                            onEdited={console.log}
+                            onCreated={(e)=>{
+                                debugger
+                                console.log("t",e)
+                            }}
+                            onDeleted={console.log}
+                            draw={{
+                                rectangle: false
+                            }}
+                        />
+                    </FeatureGroup>
                     <TileLayer
                         attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
